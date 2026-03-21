@@ -6,7 +6,7 @@ import TemplateDialog from '../components/TemplateDialog';
 import TemplateTypeSelector from '../components/TemplateTypeSelector';
 import { toast } from 'sonner';
 
-const BACKEND_URL = import.meta.env.REACT_APP_BACKEND_URL;
+const BACKEND_URL = import.meta.env.VITE_API_URL;
 
 const templateTypes = {
   cold_message: [

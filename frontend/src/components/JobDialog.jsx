@@ -8,7 +8,7 @@ import { Loader2, Building2 } from 'lucide-react';
 import { toast } from 'sonner';
 import { format } from 'date-fns';
 
-const BACKEND_URL = import.meta.env.REACT_APP_BACKEND_URL;
+const BACKEND_URL = import.meta.env.VITE_API_URL;
 
 export default function JobDialog({ open, onClose, onSuccess, job }) {
   const [formData, setFormData] = useState({

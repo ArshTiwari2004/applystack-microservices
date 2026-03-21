@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { CheckCircle2, Target, LayoutDashboard, Building2 } from 'lucide-react';
 import { Button } from '../components/ui/button';
 
-const BACKEND_URL = import.meta.env.REACT_APP_BACKEND_URL;
+const BACKEND_URL = import.meta.env.VITE_API_URL;
 
 export default function Landing() {
   const navigate = useNavigate();

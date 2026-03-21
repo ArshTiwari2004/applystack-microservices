@@ -4,7 +4,7 @@ import { Button } from './ui/button';
 import { toast } from 'sonner';
 import { useState } from 'react';
 
-const BACKEND_URL = import.meta.env.REACT_APP_BACKEND_URL;
+const BACKEND_URL = import.meta.env.VITE_API_URL;
 
 export default function Layout({ children }) {
   const location = useLocation();

@@ -7,7 +7,7 @@ import TaskCard from '../components/TaskCard';
 import { toast } from 'sonner';
 import { format, isToday, isTomorrow, isFuture, isPast } from 'date-fns';
 
-const BACKEND_URL = import.meta.env.REACT_APP_BACKEND_URL;
+const BACKEND_URL = import.meta.env.VITE_API_URL;
 
 export default function Tasks() {
   const [tasks, setTasks] = useState([]);
