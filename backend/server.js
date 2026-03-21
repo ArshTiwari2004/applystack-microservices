@@ -13,7 +13,7 @@ const PORT = process.env.PORT || 8001;
 
 // MongoDB connection
 const mongoUrl = process.env.MONGO_URL || 'mongodb://localhost:27017';
-const dbName = process.env.DB_NAME || 'taskflow';
+const dbName = process.env.DB_NAME || 'applystack';
 let db;
 
 const mongoClient = new MongoClient(mongoUrl, {
@@ -52,7 +52,7 @@ app.use(cors({
             'http://localhost:3000',
             'http://localhost:5173',
             'http://localhost:4173',
-            'https://taskflow-smem.vercel.app',
+            // i have to add vercel link here, when deploy
             process.env.CORS_ORIGINS
         ].flat().filter(Boolean);
 
@@ -88,7 +88,7 @@ app.use('/api/companies', companyRoutes);
 
 // Root endpoint
 app.get('/api', (req, res) => {
-    res.json({ message: 'TaskFlow API', status: 'running' });
+    res.json({ message: 'ApplyStack API', status: 'running' });
 });
 
 // Health check endpoints
@@ -105,7 +105,7 @@ app.get('/api/health', async (req, res) => {
 
         res.json({
             status: 'healthy',
-            service: 'TaskFlow API',
+            service: 'ApplyStack API',
             services: {
                 mongodb: 'connected',
                 redis: redisStatus,
@@ -126,7 +126,7 @@ app.get('/health', async (req, res) => {
         await db.command({ ping: 1 });
         res.json({
             status: 'healthy',
-            service: 'TaskFlow API',
+            service: 'ApplyStack API',
             database: 'connected'
         });
     } catch (error) {
@@ -161,7 +161,7 @@ async function startServer() {
 
         // Start Express server
         app.listen(PORT, () => {
-            console.log(`TaskFlow API running on port ${PORT}`);
+            console.log(`ApplyStack API running on port ${PORT}`);
             console.log('Services status:');
             console.log('  - MongoDB: connected');
             console.log(`  - Redis: ${getRedisClient() ? 'connected' : 'not available'}`);
