@@ -13,32 +13,41 @@ export default function Dashboard() {
   const [jobs, setJobs] = useState([]);
   const [loading, setLoading] = useState(true);
   const [showTaskDialog, setShowTaskDialog] = useState(false);
+  const [user, setUser] = useState(null);
 
   useEffect(() => {
     fetchData();
   }, []);
 
-  const fetchData = async () => {
-    try {
-      const [tasksRes, jobsRes] = await Promise.all([
-        fetch(`${BACKEND_URL}/api/tasks`, { credentials: 'include' }),
-        fetch(`${BACKEND_URL}/api/jobs`, { credentials: 'include' })
-      ]);
+const fetchData = async () => {
+  try {
+    const [tasksRes, jobsRes, userRes] = await Promise.all([
+      fetch(`${BACKEND_URL}/api/tasks`, { credentials: 'include' }),
+      fetch(`${BACKEND_URL}/api/jobs`, { credentials: 'include' }),
+      fetch(`${BACKEND_URL}/api/auth/me`, { credentials: 'include' }) // already auth done
+    ]);
 
-      if (tasksRes.ok) {
-        const tasksData = await tasksRes.json();
-        setTasks(tasksData);
-      }
-      if (jobsRes.ok) {
-        const jobsData = await jobsRes.json();
-        setJobs(jobsData);
-      }
-    } catch (error) {
-      toast.error('Failed to load data');
-    } finally {
-      setLoading(false);
+    if (tasksRes.ok) {
+      const tasksData = await tasksRes.json();
+      setTasks(tasksData);
     }
-  };
+
+    if (jobsRes.ok) {
+      const jobsData = await jobsRes.json();
+      setJobs(jobsData);
+    }
+
+    if (userRes.ok) {
+      const userData = await userRes.json();
+      setUser(userData); // set user
+    }
+
+  } catch (error) {
+    toast.error('Failed to load data');
+  } finally {
+    setLoading(false);
+  }
+};
 
   const todayTasks = tasks.filter(t => t.date === format(new Date(), 'yyyy-MM-dd') && !t.completed);
   const completedToday = tasks.filter(t => t.date === format(new Date(), 'yyyy-MM-dd') && t.completed).length;
@@ -76,7 +85,13 @@ export default function Dashboard() {
       <div className="space-y-6 sm:space-y-8" data-testid="dashboard-container">
         <div className="space-y-2">
           <h1 className="text-3xl sm:text-4xl font-heading font-bold tracking-tight">Dashboard</h1>
-          <p className="text-sm sm:text-base text-muted-foreground">Welcome back! Here's your overview.</p>
+        <p className="text-sm sm:text-base text-muted-foreground">
+  Welcome back
+  {user?.name
+    ? `, ${user.name.split(' ')[0].charAt(0).toUpperCase() + user.name.split(' ')[0].slice(1)}`
+    : ''
+  }! Here's your overview.
+</p>
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">

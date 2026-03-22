@@ -22,12 +22,14 @@ const authenticate = async (req, res, next) => {
         try {
             // First, try to verify as JWT
             const decoded = jwt.verify(token, JWT_SECRET);
+            // in jwt there are 2 things: jwt.verify() and the other one is jwt.decode()
             req.userId = decoded.userId;
             next();
         } catch (jwtError) {
             // If JWT verification fails, check if it's a session token in the database
             try {
-                const session = await req.db.collection('user_sessions').findOne({ session_token: token });
+                const session = await req.db.collection('user_sessions').findOne({ session_token: token }); // fallback system, validate expiry manually
+                // fallback session mechanism using a database collection to support legacy sessions and provide an extra validation layer
 
                 if (!session) {
                     return res.status(401).json({ detail: 'Invalid session' });
@@ -55,6 +57,7 @@ const authenticate = async (req, res, next) => {
 // Generate JWT token
 const generateToken = (userId) => {
     return jwt.sign({ userId }, JWT_SECRET, { expiresIn: '7d' });
+    // token expiry time is set to 7 days 
 };
 
 module.exports = { authenticate, generateToken, JWT_SECRET };

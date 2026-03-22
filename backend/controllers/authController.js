@@ -48,6 +48,8 @@ const register = async (req, res) => {
         const token = generateToken(userId);
 
         // Set cookie with proper options
+        // store jwt in an http cookie, JWT in HttpOnly cookies on the client (browser) using res.cookie() from backend
+        // prevents from xss attacks as js cannto access cookie
         res.cookie('session_token', token, getCookieOptions());
 
         // Return user without password
