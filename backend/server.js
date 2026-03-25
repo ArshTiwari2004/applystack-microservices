@@ -52,6 +52,7 @@ app.use(cors({
             'http://localhost:3000',
             'http://localhost:5173',
             'http://localhost:4173',
+            'https://applystack.vercel.app',
             // i have to add vercel link here, when deploy
             process.env.CORS_ORIGINS
         ].flat().filter(Boolean);
