@@ -144,3 +144,6 @@ VITE_API_URL=http://localhost:8001
 - [ ] Email parsing to auto-import application confirmations
  
 
+<a href="https://applystack.vercel.app/">
+<img alt="Live Demo" src="https://img.shields.io/badge/Open-ApplyStack%20Live-2ea44f?style=for-the-badge&logo=web&logoColor=white&labelColor=%23202025">
+</a>
