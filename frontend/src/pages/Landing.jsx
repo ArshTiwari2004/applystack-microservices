@@ -101,12 +101,16 @@ export default function Landing() {
       {/* Nav */}
       <nav className="glassmorphism fixed top-0 left-0 right-0 z-50">
         <div className="max-w-6xl mx-auto px-5 sm:px-8 h-16 flex items-center justify-between">
-          <div className="flex items-center gap-2.5">
-            <div className="w-7 h-7 rounded-lg bg-primary flex items-center justify-center">
-              <span className="text-white font-heading font-bold text-sm">A</span>
-            </div>
-            <span className="font-heading font-bold text-lg tracking-tight">ApplyStack</span>
-          </div>
+        <div className="flex items-center gap-2.5">
+  <img
+    src="/applystacklogo.png"
+    alt="ApplyStack Logo"
+  className="h-10 w-auto scale-150 object-contain"
+  />
+  <span className="font-heading font-bold text-lg tracking-tight">
+    ApplyStack
+  </span>
+</div>
           <Button
             data-testid="nav-signin-button"
             onClick={() => navigate('/login')}
@@ -125,18 +129,34 @@ export default function Landing() {
           <div className={`max-w-4xl w-full text-center space-y-10 transition-all duration-700 ${mounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}>
             
             {/* Badge */}
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-primary/30 bg-primary/5 text-sm text-primary font-medium">
+            {/* <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-primary/30 bg-primary/5 text-sm text-primary font-medium">
               <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
               Built for placement season
-            </div>
+            </div> */}
 
             {/* Headline */}
             <div className="space-y-4">
-              <h1 className="text-4xl sm:text-6xl md:text-7xl font-heading font-bold tracking-tight leading-[1.1]">
-                Stop losing track of
-                <br />
-                <span className="gradient-text">your opportunities.</span>
-              </h1>
+      <h1 className="text-4xl sm:text-6xl md:text-7xl font-heading font-bold tracking-tight leading-[1.1]">
+  Stop losing track of
+  <br />
+  <span className="gradient-text">
+    your{" "}
+    <span className="relative inline-block gradient-text">
+      opportunities
+      <span className="absolute left-0 -bottom-2 w-full h-3 pointer-events-none">
+        {/* this is the custom underline using svg */}
+        <svg viewBox="0 0 100 10" preserveAspectRatio="none" className="w-full h-full">
+          <path
+            d="M0,5 Q50,10 100,5"
+            stroke="currentColor"
+            strokeWidth="2"
+            fill="transparent"
+          />
+        </svg>
+      </span>
+    </span>.
+  </span>
+</h1>
               <p className="text-base sm:text-lg text-muted-foreground max-w-xl mx-auto leading-relaxed">
                 ApplyStack is a purpose-built tracker for job seekers managing 30+ applications. Structured pipelines, smart reminders, reusable templates.
               </p>
@@ -223,10 +243,16 @@ export default function Landing() {
       <footer className="border-t border-white/5 py-6 px-5 sm:px-8">
         <div className="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3 text-sm text-muted-foreground">
           <div className="flex items-center gap-2">
-            <div className="w-5 h-5 rounded bg-primary/80 flex items-center justify-center">
-              <span className="text-white font-heading font-bold text-xs">A</span>
-            </div>
-            <span className="font-heading font-medium text-foreground">ApplyStack</span>
+            <div className="flex items-center gap-2.5">
+  <img
+    src="/applystacklogo.png"
+    alt="ApplyStack Logo"
+  className="h-10 w-auto scale-150 object-contain"
+  />
+  <span className="font-heading font-bold text-lg tracking-tight">
+    ApplyStack
+  </span>
+</div>
           </div>
           <p>Built for students, by a student. Open source.</p>
         </div>
