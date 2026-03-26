@@ -11,6 +11,7 @@ import Companies from './pages/Companies';
 import Templates from './pages/Templates';
 import Profile from './pages/Profile';
 import { Toaster } from './components/ui/sonner';
+import { Analytics } from "@vercel/analytics/react";
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
           <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
         </Routes>
         <Toaster position="top-right" />
+        <Analytics />
       </BrowserRouter>
     </div>
   );
