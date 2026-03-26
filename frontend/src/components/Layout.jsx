@@ -19,7 +19,7 @@ export default function Layout({ children }) {
   const navigate = useNavigate();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
-  // 🔥 NEW: logout modal state
+  // logout modal state
   const [showLogoutModal, setShowLogoutModal] = useState(false);
 
   const handleLogout = async () => {
