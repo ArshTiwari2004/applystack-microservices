@@ -85,12 +85,30 @@ const fetchData = async () => {
       <div className="space-y-6 sm:space-y-8" data-testid="dashboard-container">
         <div className="space-y-2">
           <h1 className="text-3xl sm:text-4xl font-heading font-bold tracking-tight">Dashboard</h1>
-        <p className="text-sm sm:text-base text-muted-foreground">
-  Welcome back
-  {user?.name
-    ? `, ${user.name.split(' ')[0].charAt(0).toUpperCase() + user.name.split(' ')[0].slice(1)}`
-    : ''
-  }! Here's your overview.
+      <p className="text-sm sm:text-base text-muted-foreground">
+  {user?.name ? (
+    <>
+    {/* IIFE (Immediately Invoked Function Expression) */}
+    {/* (() => { ... })() */}
+    {/* i am running this small logic here and not creating a extra variable outside  */}
+      {(() => {
+        const firstName = user.name.split(' ')[0];
+        const hour = new Date().getHours();
+
+        // hour gives me a number from 0 to 23
+        // 0 to 11 is morning as 0 is 12 am , 12-17 afternoon, 18-23 evening
+
+        let greeting = "Hey";
+        if (hour < 12) greeting = "Good morning";
+        else if (hour < 18) greeting = "Good afternoon";
+        else greeting = "Good evening";
+
+        return `${greeting}, ${firstName}! Ready to make progress today?`;
+      })()}
+    </>
+  ) : (
+    "Ready to stay on top of your applications?"
+  )}
 </p>
         </div>
 
@@ -116,7 +134,7 @@ const fetchData = async () => {
 
         <div className="space-y-4">
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
-            <h2 className="text-xl sm:text-2xl font-heading font-semibold">Today's Tasks</h2>
+            <h2 className="text-xl sm:text-2xl font-heading font-semibold">What’s on your plate today? </h2>
             <Button data-testid="add-task-button" onClick={() => setShowTaskDialog(true)} size="sm" className="w-full sm:w-auto">
               <Plus className="w-4 h-4 mr-2" />
               Add Task
@@ -125,7 +143,7 @@ const fetchData = async () => {
 
           {todayTasks.length === 0 ? (
             <div className="p-8 sm:p-12 text-center rounded-lg border border-dashed border-white/10">
-              <p className="text-sm sm:text-base text-muted-foreground">No tasks for today. Add one to get started!</p>
+             <p className="text-sm sm:text-base text-muted-foreground">A clear day, perfect time to push one step closer to your next offer. </p>
             </div>
           ) : (
             <div className="space-y-2">

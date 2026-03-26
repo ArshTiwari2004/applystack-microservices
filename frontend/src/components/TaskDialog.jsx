@@ -18,8 +18,10 @@ export default function TaskDialog({ open, onClose, onSuccess, task }) {
     tags: '',
     date: format(new Date(), 'yyyy-MM-dd')
   });
+
   const [loading, setLoading] = useState(false);
 
+  // Prefill data if editing
   useEffect(() => {
     if (task) {
       setFormData({
@@ -42,16 +44,21 @@ export default function TaskDialog({ open, onClose, onSuccess, task }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     if (!formData.title.trim()) {
-      toast.error('Title is required');
+      toast.error('Give your task a title first');
       return;
     }
 
     setLoading(true);
+
     try {
       const payload = {
         ...formData,
-        tags: formData.tags.split(',').map(t => t.trim()).filter(Boolean)
+        tags: formData.tags
+          .split(',')
+          .map(t => t.trim())
+          .filter(Boolean)
       };
 
       const url = task
@@ -68,14 +75,14 @@ export default function TaskDialog({ open, onClose, onSuccess, task }) {
       });
 
       if (response.ok) {
-        toast.success(task ? 'Task updated' : 'Task created');
+        toast.success(task ? 'Task updated successfully' : 'Task added successfully');
         onSuccess();
         onClose();
       } else {
-        toast.error('Failed to save task');
+        toast.error('Could not save task');
       }
-    } catch (error) {
-      toast.error('An error occurred');
+    } catch {
+      toast.error('Something went wrong');
     } finally {
       setLoading(false);
     }
@@ -83,86 +90,118 @@ export default function TaskDialog({ open, onClose, onSuccess, task }) {
 
   return (
     <Dialog open={open} onOpenChange={onClose}>
-      <DialogContent data-testid="task-dialog" className="sm:max-w-md" aria-describedby="task-dialog-description">
+      <DialogContent className="sm:max-w-md" data-testid="task-dialog">
+        
+        {/* Header */}
         <DialogHeader>
-          <DialogTitle>{task ? 'Edit Task' : 'Create Task'}</DialogTitle>
-          <p id="task-dialog-description" className="sr-only">
-            {task ? 'Edit your task details' : 'Create a new task with title, description, priority, date, and tags'}
+          <DialogTitle className="text-lg">
+            {task ? 'Refine your task' : 'Create a new task'}
+          </DialogTitle>
+          <p className="text-sm text-muted-foreground">
+            {task
+              ? 'Update details to stay on track'
+              : 'Capture what you need to get done'}
           </p>
         </DialogHeader>
-        <form onSubmit={handleSubmit} className="space-y-4">
-          <div>
-            <Label htmlFor="title">Title *</Label>
+
+        {/* Form */}
+        <form onSubmit={handleSubmit} className="space-y-5">
+
+          {/* Title */}
+          <div className="space-y-1.5">
+            <Label htmlFor="title">Task title</Label>
             <Input
               id="title"
-              data-testid="task-title-input"
               value={formData.title}
               onChange={(e) => setFormData({ ...formData, title: e.target.value })}
-              placeholder="Task title"
+              placeholder="e.g. Apply to Google SWE Internship"
               required
             />
           </div>
 
-          <div>
+          {/* Description */}
+          <div className="space-y-1.5">
             <Label htmlFor="description">Description</Label>
             <Textarea
               id="description"
-              data-testid="task-description-input"
               value={formData.description}
               onChange={(e) => setFormData({ ...formData, description: e.target.value })}
-              placeholder="Task description"
+              placeholder="Add notes, links, or anything useful..."
               rows={3}
             />
           </div>
 
-          <div>
-            <Label htmlFor="priority">Priority</Label>
-            <Select
-              value={formData.priority}
-              onValueChange={(value) => setFormData({ ...formData, priority: value })}
-            >
-              <SelectTrigger data-testid="task-priority-select">
-                <SelectValue />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="low">Low</SelectItem>
-                <SelectItem value="medium">Medium</SelectItem>
-                <SelectItem value="high">High</SelectItem>
-              </SelectContent>
-            </Select>
+          {/* Priority + Date Row */}
+          <div className="grid grid-cols-2 gap-3">
+
+            {/* Priority */}
+            <div className="space-y-1.5">
+              <Label>Priority</Label>
+              <Select
+                value={formData.priority}
+                onValueChange={(value) => setFormData({ ...formData, priority: value })}
+              >
+                <SelectTrigger>
+                  <SelectValue placeholder="Select priority" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="low">🟢 Low - can wait</SelectItem>
+                  <SelectItem value="medium">🟡 Medium - important</SelectItem>
+                  <SelectItem value="high">🔴 High - urgent</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+
+            {/* Date */}
+            <div className="space-y-1.5">
+              <Label htmlFor="date">Due date</Label>
+              <Input
+                id="date"
+                type="date"
+                value={formData.date}
+                onChange={(e) => setFormData({ ...formData, date: e.target.value })}
+                required
+              />
+            </div>
           </div>
 
-          <div>
-            <Label htmlFor="date">Date</Label>
-            <Input
-              id="date"
-              data-testid="task-date-input"
-              type="date"
-              value={formData.date}
-              onChange={(e) => setFormData({ ...formData, date: e.target.value })}
-              required
-            />
-          </div>
-
-          <div>
+          {/* Tags */}
+          <div className="space-y-1.5">
             <Label htmlFor="tags">Tags</Label>
             <Input
               id="tags"
-              data-testid="task-tags-input"
               value={formData.tags}
               onChange={(e) => setFormData({ ...formData, tags: e.target.value })}
-              placeholder="work, personal (comma separated)"
+              placeholder="frontend, internship, DSA"
             />
+            <p className="text-xs text-muted-foreground">
+              Separate tags with commas
+            </p>
           </div>
 
-          <div className="flex gap-2 justify-end">
-            <Button type="button" variant="outline" onClick={onClose} disabled={loading}>
+          {/* Actions */}
+          <div className="flex justify-end gap-2 pt-2">
+            <Button
+              type="button"
+              variant="ghost"
+              onClick={onClose}
+              disabled={loading}
+            >
               Cancel
             </Button>
-            <Button type="submit" data-testid="task-submit-button" disabled={loading}>
-              {loading ? 'Saving...' : task ? 'Update' : 'Create'}
+
+            <Button
+              type="submit"
+              disabled={loading}
+            >
+              {loading
+                ? 'Saving...'
+                : task
+                  ? 'Save changes'
+                  : 'Add task'}
             </Button>
           </div>
+
         </form>
       </DialogContent>
     </Dialog>

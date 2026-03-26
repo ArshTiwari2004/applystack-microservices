@@ -9,6 +9,7 @@ import Dashboard from './pages/Dashboard';
 import Tasks from './pages/Tasks';
 import Companies from './pages/Companies';
 import Templates from './pages/Templates';
+import Profile from './pages/Profile';
 import { Toaster } from './components/ui/sonner';
 
 function App() {
@@ -24,6 +25,7 @@ function App() {
           <Route path="/tasks" element={<ProtectedRoute><Tasks /></ProtectedRoute>} />
           <Route path="/companies" element={<ProtectedRoute><Companies /></ProtectedRoute>} />
           <Route path="/templates" element={<ProtectedRoute><Templates /></ProtectedRoute>} />
+          <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
         </Routes>
         <Toaster position="top-right" />
       </BrowserRouter>
