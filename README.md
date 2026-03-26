@@ -134,6 +134,15 @@ NODE_ENV=development
 VITE_API_URL=http://localhost:8001
 ```
 
+#### Live Demo
+
+Frontend: https://applystack.vercel.app  
+Backend API: https://applystack.onrender.com  
+
+- MongoDB is hosted on MongoDB Atlas.
+- Redis and RabbitMQ are optional in production
+- First API request may take ~30 seconds due to cold start (Render free tier)
+
 ## Planned Features
  
 - [ ] AI-powered cover letter generator (via Claude API)
