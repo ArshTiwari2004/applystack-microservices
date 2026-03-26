@@ -59,9 +59,11 @@ export default function Layout({ children }) {
       {/* Mobile Header */}
       <div className="md:hidden glassmorphism fixed top-0 left-0 right-0 z-50 h-14 flex items-center justify-between px-4">
         <Link to="/dashboard" className="flex items-center gap-2">
-          <div className="w-6 h-6 rounded-md bg-primary flex items-center justify-center">
-            <span className="text-white font-heading font-bold text-xs">A</span>
-          </div>
+          <img
+  src="/applystacklogo.png"
+  alt="ApplyStack Logo"
+  className="w-6 h-6 rounded-md object-contain"
+/>
           <span className="font-heading font-bold text-base tracking-tight">ApplyStack</span>
         </Link>
         <Button
@@ -78,15 +80,16 @@ export default function Layout({ children }) {
       {/* Desktop Sidebar */}
       <aside className="hidden md:flex flex-col w-60 border-r border-white/5 bg-card/40 backdrop-blur-sm fixed h-full z-40">
         {/* Logo */}
-        <div className="p-5 border-b border-white/5">
-          <Link to="/dashboard" className="flex items-center gap-2.5">
-            <div className="w-7 h-7 rounded-lg bg-primary flex items-center justify-center">
-              <span className="text-white font-heading font-bold text-sm">A</span>
-            </div>
-            <span className="font-heading font-bold text-lg tracking-tight">ApplyStack</span>
-          </Link>
-        </div>
-
+    {/* Logo */}
+<div className="p-5 border-b border-white/5 flex items-center justify-center h-24">
+  <Link to="/dashboard" className="flex items-center justify-center">
+    <img
+      src="/applystacklogo.png"
+      alt="ApplyStack Logo"
+      className="h-16 w-auto object-contain"
+    />
+  </Link>
+</div>
         {/* Nav */}
         <nav className="flex-1 p-3 space-y-0.5">
           <p className="text-xs text-muted-foreground/60 font-medium uppercase tracking-wider px-3 py-2 mt-1">Menu</p>
