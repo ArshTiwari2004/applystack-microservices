@@ -4,12 +4,21 @@ const { generateToken } = require('../middleware/auth');
 
 // Cookie options based on environment
 const getCookieOptions = () => {
-    const isProduction = process.env.NODE_ENV === 'production';
+    // const isProduction = process.env.NODE_ENV === 'production';
+    const isProduction = true; // forcing this to fix login issue
+    // return {
+    //     httpOnly: true,
+    //     secure: isProduction, // Only secure in production (HTTPS)
+    //     sameSite: isProduction ? 'none' : 'lax', // 'lax' for localhost, 'none' for cross-origin in prod
+    //     maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
+    //     path: '/'
+    // };
+    // login . logout issue fixing
     return {
         httpOnly: true,
-        secure: isProduction, // Only secure in production (HTTPS)
-        sameSite: isProduction ? 'none' : 'lax', // 'lax' for localhost, 'none' for cross-origin in prod
-        maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
+        secure: true,
+        sameSite: 'none',
+        maxAge: 7 * 24 * 60 * 60 * 1000,
         path: '/'
     };
 };
@@ -115,26 +124,47 @@ const getMe = async (req, res) => {
     }
 };
 
+// const logout = async (req, res) => {
+//     try {
+//         const token = req.cookies?.session_token;
+
+//         if (token) {
+//             // Try to delete session from database (for legacy sessions)
+//             await req.db.collection('user_sessions').deleteOne({ session_token: token });
+//         }
+
+//         res.clearCookie('session_token', { path: '/' });
+//         res.json({ message: 'Logged out successfully' });
+//     } catch (error) {
+//         res.clearCookie('session_token', { path: '/' });
+//         res.json({ message: 'Logged out successfully' });
+//     }
+// };
+
 const logout = async (req, res) => {
     try {
-        const token = req.cookies?.session_token;
+        const cookieOptions = getCookieOptions();
 
-        if (token) {
-            // Try to delete session from database (for legacy sessions)
-            await req.db.collection('user_sessions').deleteOne({ session_token: token });
-        }
+        res.clearCookie('session_token', {
+            ...cookieOptions,
+            maxAge: 0
+        });
 
-        res.clearCookie('session_token', { path: '/' });
         res.json({ message: 'Logged out successfully' });
     } catch (error) {
-        res.clearCookie('session_token', { path: '/' });
+        const cookieOptions = getCookieOptions();
+
+        res.clearCookie('session_token', {
+            ...cookieOptions,
+            maxAge: 0
+        });
+
         res.json({ message: 'Logged out successfully' });
     }
 };
 
 const nodemailer = require('nodemailer');
 
-// ... existing code ...
 
 const transporter = nodemailer.createTransport({
     service: 'gmail',

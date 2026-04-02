@@ -48,14 +48,26 @@ app.use((req, res, next) => {
 // Middleware
 app.use(cors({
     origin: (origin, callback) => {
+        // const allowedOrigins = [
+        //     'http://localhost:3000',
+        //     'http://localhost:5173',
+        //     'http://localhost:4173',
+        //     'https://applystack.vercel.app',
+        //     // i have to add vercel link here, when deploy
+        //     process.env.CORS_ORIGINS
+        // ].flat().filter(Boolean);
+
         const allowedOrigins = [
-            'http://localhost:3000',
-            'http://localhost:5173',
-            'http://localhost:4173',
-            'https://applystack.vercel.app',
-            // i have to add vercel link here, when deploy
-            process.env.CORS_ORIGINS
-        ].flat().filter(Boolean);
+    'http://localhost:3000',
+    'http://localhost:5173',
+    'http://localhost:4173',
+    'https://applystack.vercel.app'
+];
+
+app.use(cors({
+    origin: allowedOrigins,
+    credentials: true
+}));
 
         // Allow requests with no origin (like mobile apps or curl requests)
         if (!origin) return callback(null, true);
