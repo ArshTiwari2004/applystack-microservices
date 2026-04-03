@@ -59,7 +59,7 @@ ApplyStack is a full-stack job application tracking platform built to eliminate 
 ✓ **PDF Export** : Export all applications as a formatted PDF report  
 ✓ **Smart Filters** : Filter by status: applied, shortlisted, interviewing, offer, not selected  
 ✓ **Reminders** : Auto-reminder banner for applications not yet submitted  
-✓ **Company Logos** : Auto-fetch company logos via Clearbit CDN  
+✓ **Company Logos** : Auto-fetched company logos via domain-based favicon API with fallback support.
 
 
 ### Infrastructure Features
