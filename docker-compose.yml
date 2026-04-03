@@ -84,6 +84,8 @@ volumes:
   redis_data:
   rabbitmq_data:
 
+  # volume prevents data loss 
+
 networks:
   applystack-network:
     driver: bridge
