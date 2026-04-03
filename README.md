@@ -78,7 +78,7 @@ ApplyStack is a full-stack job application tracking platform built to eliminate 
 - Docker & Docker Compose
 - MongoDB (local or Atlas)
  
-### Option 1: Docker Compose (Recommended)
+### Option 1: Docker Compose (Recommended) ![Docker](https://img.shields.io/badge/Docker-Containerized-blue?logo=docker&logoColor=white)
  
 ```bash
 git clone https://github.com/ArshTiwari2004/applystack-microservices.git 
@@ -87,13 +87,33 @@ cd applystack
 # Set environment variables
 cp backend/.env.example backend/.env
 # Edit backend/.env with your values
- 
+
+# Build and start all services 
 docker-compose up --build
+
+# Run in background (optional)
+docker-compose up -d --build
+
+# Stop services
+docker-compose down
+
+# Reset everything (including data)
+docker-compose down -v
+
+| Service   | URL / Port |
+|----------|-----------|
+| Backend  | http://localhost:8001 |
+| Health   | http://localhost:8001/api/health |
+| MongoDB  | 27017 |
+| Redis    | 6379 |
+| RabbitMQ | http://localhost:15672 |
 ```
  
 Services start at:
 - API: `http://localhost:8001`
 - RabbitMQ Management: `http://localhost:15672`
+- Services communicate using container names (e.g., `mongo`, `redis`, `rabbitmq`)
+- To verify everything is working, just go to: `http://localhost:8001/api/health`
  
 ### Option 2: Manual Setup
  
