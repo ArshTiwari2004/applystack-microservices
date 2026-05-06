@@ -4,24 +4,38 @@ const { ChatAnthropic } = require('@langchain/anthropic');
 const { PromptTemplate, ChatPromptTemplate } = require('@langchain/core/prompts');
 const { RunnableSequence } = require('@langchain/core/runnables');
 const { StringOutputParser, JsonOutputParser } = require('@langchain/core/output_parsers');
-const { StructuredOutputParser } = require('langchain/output_parsers');
+const { StructuredOutputParser } = require('@langchain/core/output_parsers');
 const { z } = require('zod');
 
 /*
 llm setup
  */
+// const llm = new ChatAnthropic({
+//   apiKey: process.env.ANTHROPIC_API_KEY,
+//   model: 'claude-haiku-4-5-20251001',
+//   maxTokens: 2048,
+//   temperature: 0.3, // Low temp for structured output, higher for creative writing
+// });
+
+// const creativeLlm = new ChatAnthropic({
+//   apiKey: process.env.ANTHROPIC_API_KEY,
+//   model: 'claude-haiku-4-5-20251001',
+//   maxTokens: 4096,
+//   temperature: 0.7, // Higher for cover letters — we want some creativity
+// });
+
 const llm = new ChatAnthropic({
   apiKey: process.env.ANTHROPIC_API_KEY,
-  model: 'claude-haiku-4-5-20251001',
+  model: 'claude-3-5-haiku-20241022',
   maxTokens: 2048,
-  temperature: 0.3, // Low temp for structured output, higher for creative writing
+  temperature: 0.3,
 });
 
 const creativeLlm = new ChatAnthropic({
   apiKey: process.env.ANTHROPIC_API_KEY,
-  model: 'claude-haiku-4-5-20251001',
+  model: 'claude-3-5-haiku-20241022',
   maxTokens: 4096,
-  temperature: 0.7, // Higher for cover letters — we want some creativity
+  temperature: 0.7,
 });
 
 

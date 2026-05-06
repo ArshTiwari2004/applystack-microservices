@@ -3,6 +3,7 @@ import { LayoutDashboard, CheckSquare, Building2, LogOut, Menu, X, FileText, Che
 import { Button } from './ui/button';
 import { toast } from 'sonner';
 import { useState } from 'react';
+import { Sparkles } from 'lucide-react';
 
 const BACKEND_URL = import.meta.env.VITE_API_URL;
 
@@ -12,6 +13,7 @@ const navItems = [
   { path: '/companies', icon: Building2, label: 'Applications', color: 'text-jobTracker' },
   { path: '/templates', icon: FileText, label: 'Templates', color: 'text-accent' },
   { path: '/profile', icon: User, label: 'Profile', color: 'text-primary' },
+  { path: '/ai', icon: Sparkles, label: 'AI Assistant', color: 'text-primary' },
 ];
 
 export default function Layout({ children }) {

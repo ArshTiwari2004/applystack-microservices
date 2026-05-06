@@ -54,13 +54,13 @@ export default function AIAssistant() {
         {/* Header */}
         <div className="space-y-1">
           <div className="flex items-center gap-2.5">
-            <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center">
+            {/* <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center">
               <Sparkles className="w-4.5 h-4.5 text-primary" />
-            </div>
+            </div> */}
             <h1 className="text-3xl sm:text-4xl font-heading font-bold tracking-tight">AI Assistant</h1>
           </div>
-          <p className="text-sm text-muted-foreground ml-11">
-            Powered by Claude — your intelligent job search co-pilot
+          <p className="text-sm text-muted-foreground ">
+            This is a intelligent job search system in ApplyStack
           </p>
         </div>
 

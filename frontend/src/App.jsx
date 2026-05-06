@@ -10,6 +10,7 @@ import Tasks from './pages/Tasks';
 import Companies from './pages/Companies';
 import Templates from './pages/Templates';
 import Profile from './pages/Profile';
+import AIAssistant from './pages/AIAssistant';
 import { Toaster } from './components/ui/sonner';
 import { Analytics } from "@vercel/analytics/react";
 
@@ -27,6 +28,7 @@ function App() {
           <Route path="/companies" element={<ProtectedRoute><Companies /></ProtectedRoute>} />
           <Route path="/templates" element={<ProtectedRoute><Templates /></ProtectedRoute>} />
           <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
+          <Route path="/ai" element={<ProtectedRoute><AIAssistant /></ProtectedRoute>} />
         </Routes>
         <Toaster position="top-right" />
         <Analytics />

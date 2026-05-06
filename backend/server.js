@@ -14,6 +14,8 @@ const PORT = process.env.PORT || 8001;
 // MongoDB connection
 const mongoUrl = process.env.MONGO_URL || 'mongodb://localhost:27017';
 const dbName = process.env.DB_NAME || 'applystack';
+const aiConfigured = !!process.env.ANTHROPIC_API_KEY;
+const s3Configured = !!process.env.S3_BUCKET_NAME;
 let db;
 
 const mongoClient = new MongoClient(mongoUrl, {
@@ -91,6 +93,8 @@ const taskRoutes = require('./routes/tasks');
 const jobRoutes = require('./routes/jobs');
 const templateRoutes = require('./routes/templates');
 const companyRoutes = require('./routes/companies');
+const aiRoutes = require('./routes/ai');
+const resumeRoutes = require('./routes/resume');
 
 // API Routes
 app.use('/api/auth', authRoutes);
@@ -98,6 +102,8 @@ app.use('/api/tasks', taskRoutes);
 app.use('/api/jobs', jobRoutes);
 app.use('/api/templates', templateRoutes);
 app.use('/api/companies', companyRoutes);
+app.use('/api/ai', aiRoutes);
+app.use('/api/resume', resumeRoutes);
 
 // Root endpoint
 app.get('/api', (req, res) => {
@@ -115,6 +121,9 @@ app.get('/api/health', async (req, res) => {
 
         // Check RabbitMQ
         const rabbitmqStatus = getRabbitMQChannel() ? 'connected' : 'not connected';
+
+
+        ai: aiConfigured ? 'configured' : 'not configured';
 
         res.json({
             status: 'healthy',

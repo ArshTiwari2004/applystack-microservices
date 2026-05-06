@@ -39,7 +39,7 @@
 
 const { CohereEmbeddings } = require('@langchain/cohere');
 const { OpenAIEmbeddings } = require('@langchain/openai');
-const { MemoryVectorStore } = require('langchain/vectorstores/memory');
+const { MemoryVectorStore } = require("@langchain/classic/vectorstores/memory");
 const { Document } = require('@langchain/core/documents');
 
 
