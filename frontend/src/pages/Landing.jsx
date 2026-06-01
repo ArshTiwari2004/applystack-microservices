@@ -1,6 +1,14 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { CheckCircle2, LayoutDashboard, Building2, ArrowRight, Zap, Shield, Layers } from 'lucide-react';
+import {
+  CheckCircle2,
+  LayoutDashboard,
+  Building2,
+  ArrowRight,
+  Zap,
+  Shield,
+  Layers
+} from 'lucide-react';
 import { Button } from '../components/ui/button';
 
 const BACKEND_URL = import.meta.env.VITE_API_URL;
@@ -17,7 +25,8 @@ const features = [
     color: 'text-taskManager',
     bg: 'bg-taskManager/10',
     title: 'Smart Task Management',
-    description: 'Priority-based tasks with overdue tracking, tags, and daily grouping. Never miss a prep deadline.',
+    description:
+      'Priority-based tasks with overdue tracking, tags, and daily grouping. Never miss a prep deadline.',
     testId: 'feature-card-tasks',
   },
   {
@@ -25,7 +34,8 @@ const features = [
     color: 'text-jobTracker',
     bg: 'bg-jobTracker/10',
     title: 'Job Application Tracker',
-    description: 'Full-lifecycle tracking: applied → shortlisted → interviews → offer. Grouped by company with status filters.',
+    description:
+      'Full-lifecycle tracking: applied → shortlisted → interviews → offer. Grouped by company with status filters.',
     testId: 'feature-card-tracker',
   },
   {
@@ -33,7 +43,8 @@ const features = [
     color: 'text-info',
     bg: 'bg-info/10',
     title: 'Unified Dashboard',
-    description: 'Today\'s tasks and active applications at a glance. The command center for your job search.',
+    description:
+      "Today's tasks and active applications at a glance. The command center for your job search.",
     testId: 'feature-card-dashboard',
   },
   {
@@ -41,7 +52,8 @@ const features = [
     color: 'text-accent',
     bg: 'bg-accent/10',
     title: 'Reusable Templates',
-    description: 'Save LinkedIn referral requests, HR emails, and cover letter content. Write once, use everywhere.',
+    description:
+      'Save LinkedIn referral requests, HR emails, and cover letter content. Write once, use everywhere.',
     testId: 'feature-card-templates',
   },
   {
@@ -49,7 +61,8 @@ const features = [
     color: 'text-warning',
     bg: 'bg-warning/10',
     title: 'Instant Reminders',
-    description: 'Automatic banners for companies you haven\'t applied to yet. Stay ahead of every opportunity.',
+    description:
+      "Automatic banners for companies you haven't applied to yet. Stay ahead of every opportunity.",
     testId: 'feature-card-reminders',
   },
   {
@@ -57,38 +70,38 @@ const features = [
     color: 'text-success',
     bg: 'bg-success/10',
     title: 'Secure & Private',
-    description: 'JWT authentication, bcrypt passwords, HttpOnly cookies. Your data stays yours.',
+    description:
+      'JWT authentication, bcrypt passwords, HttpOnly cookies. Your data stays yours.',
     testId: 'feature-card-security',
   },
 ];
 
 export default function Landing() {
   const navigate = useNavigate();
-  const [isChecking, setIsChecking] = useState(true);
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
+    setTimeout(() => setMounted(true), 50);
+
     const checkAuth = async () => {
       try {
-        const response = await fetch(`${BACKEND_URL}/api/auth/me`, { credentials: 'include' });
-        if (response.ok) navigate('/dashboard');
-      } catch (_) {}
-      finally { setIsChecking(false); }
-    };
-    checkAuth();
-    setTimeout(() => setMounted(true), 50);
-  }, [navigate]);
+        const response = await fetch(
+          `${BACKEND_URL}/api/auth/me`,
+          {
+            credentials: 'include',
+          }
+        );
 
-  if (isChecking) {
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-background">
-        <div className="flex flex-col items-center gap-4">
-          <div className="w-8 h-8 rounded-full border-2 border-primary/30 border-t-primary animate-spin" />
-          <p className="text-sm text-muted-foreground">Loading...</p>
-        </div>
-      </div>
-    );
-  }
+        if (response.ok) {
+          navigate('/dashboard');
+        }
+      } catch (err) {
+        console.log('Auth check skipped');
+      }
+    };
+
+    checkAuth();
+  }, [navigate]);
 
   return (
     <div className="min-h-screen flex flex-col bg-background overflow-x-hidden">
